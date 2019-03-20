@@ -1,0 +1,2 @@
+class PanelProvidersController < ApplicationController
+end
