@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_20_100734) do
+ActiveRecord::Schema.define(version: 2019_03_21_124555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,12 +21,28 @@ ActiveRecord::Schema.define(version: 2019_03_20_100734) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "countries_target_groups", force: :cascade do |t|
+    t.bigint "country_id"
+    t.bigint "target_group_id"
+    t.index ["country_id", "target_group_id"], name: "index_countries_target_groups_on_country_and_target_group", unique: true
+    t.index ["country_id"], name: "index_countries_target_groups_on_country_id"
+    t.index ["target_group_id"], name: "index_countries_target_groups_on_target_group_id"
+  end
+
   create_table "location_groups", force: :cascade do |t|
     t.string "name"
     t.integer "country_id"
     t.integer "panel_provider_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "location_groups_locations", id: false, force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.bigint "location_group_id", null: false
+    t.index ["location_group_id"], name: "index_location_groups_locations_on_location_group_id"
+    t.index ["location_id", "location_group_id"], name: "index_locations_location_groups_on_location_and_location_group", unique: true
+    t.index ["location_id"], name: "index_location_groups_locations_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -53,4 +69,6 @@ ActiveRecord::Schema.define(version: 2019_03_20_100734) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "countries_target_groups", "countries"
+  add_foreign_key "countries_target_groups", "target_groups"
 end

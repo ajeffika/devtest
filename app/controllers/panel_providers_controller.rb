@@ -1,2 +1,0 @@
-class PanelProvidersController < ApplicationController
-end
