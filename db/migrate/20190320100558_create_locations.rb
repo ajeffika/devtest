@@ -1,13 +1,11 @@
-class CreateLocations < ActiveRecord::Migration[5.2]
+class CreateLocations < ActiveRecord::Migration
   def change
     create_table :locations do |t|
-      t.string :name, null: false
-      t.string :external_id, null: false
-      t.string :secret_code, null: false
+      t.string :name
+      t.integer :external_id
+      t.string :secret_code
 
-      t.timestamps
+      t.timestamps null: false
     end
-
-    add_index(:locations, :external_id, unique: true)
   end
 end

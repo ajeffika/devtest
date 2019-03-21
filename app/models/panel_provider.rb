@@ -1,9 +1,6 @@
-class PanelProvider < ApplicationRecord
+class PanelProvider < ActiveRecord::Base
   has_many :countries
+  has_many :location_groups
 
-  validates :code, presence: true, uniqueness: true
-
-  def price
-    PanelProviderServices::FetchPrice.new(code: code).call
-  end
+  validates :code, presence: true
 end

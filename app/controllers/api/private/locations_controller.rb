@@ -1,10 +1,8 @@
-class Api::Public::LocationsController <  Api::BaseController
+class Api::Private::TargetGroupsController < Api::Private::BaseController
 
-  desc "Return locations by provided country code"
-  params do
-    requires :country_code, type: String
-  end
-  get do
-    GetLocationByCountryCodeQuery.new(country_code: params[:country_code]).call
+  def index
+    target_groups = TargetGroupsForCountryQuery.new(params[:country_code]).fetch
+
+    render json: target_groups
   end
 end

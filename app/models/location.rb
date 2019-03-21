@@ -1,7 +1,6 @@
-class Location < ApplicationRecord
-  belongs_to :country
+class Location < ActiveRecord::Base
   has_and_belongs_to_many :location_groups
 
-  validates :external_id, :name, :secret_code, presence: true
-  validates :external_id, :secret_code, uniqueness: true
+  validates :name, :external_id, :secret_code, presence: true
+  validates :secret_code, uniqueness: true
 end

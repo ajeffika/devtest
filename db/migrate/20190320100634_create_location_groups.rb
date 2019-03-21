@@ -1,11 +1,11 @@
-class CreateLocationGroups < ActiveRecord::Migration[5.2]
+class CreateLocationGroups < ActiveRecord::Migration
   def change
     create_table :location_groups do |t|
-      t.string :name, null: false
-      t.belongs_to :country, foreign_key: true, null: false
-      t.belongs_to :panel_provider, foreign_key: true, null: false
+      t.string :name
+      t.references :country, index: true, foreign_key: true
+      t.references :panel_provider, index: true, foreign_key: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
